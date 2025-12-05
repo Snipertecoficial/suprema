@@ -1,0 +1,126 @@
+{
+    "name": "CRM Integration Template",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "crm-events",
+                "options": {}
+            },
+            "name": "Webhook CRM",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ],
+            "webhookId": "crm-events"
+        },
+        {
+            "parameters": {
+                "dataType": "string",
+                "value1": "={{ $json.event }}",
+                "rules": {
+                    "rules": [
+                        {
+                            "value2": "APPOINTMENT_CREATED"
+                        },
+                        {
+                            "value2": "PAYMENT_CONFIRMED"
+                        },
+                        {
+                            "value2": "CLIENT_REGISTERED"
+                        }
+                    ]
+                }
+            },
+            "name": "Roteador de Eventos",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "content": "## Configuração Supabase\n1. Adicione suas credenciais do Supabase no n8n.\n2. Use o nó 'Supabase' para buscar ou salvar dados.\n3. O payload do evento vem no corpo do Webhook."
+            },
+            "name": "Instruções",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                180,
+                140
+            ]
+        },
+        {
+            "parameters": {},
+            "name": "Agendamento Criado",
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+            "position": [
+                700,
+                100
+            ]
+        },
+        {
+            "parameters": {},
+            "name": "Pagamento Confirmado",
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+            "position": [
+                700,
+                300
+            ]
+        },
+        {
+            "parameters": {},
+            "name": "Cliente Novo",
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+            "position": [
+                700,
+                500
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook CRM": {
+            "main": [
+                [
+                    {
+                        "node": "Roteador de Eventos",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Roteador de Eventos": {
+            "main": [
+                [
+                    {
+                        "node": "Agendamento Criado",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Pagamento Confirmado",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Cliente Novo",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

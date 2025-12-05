@@ -1,0 +1,545 @@
+{
+  "name": "03 - Confirmação Automática de Agendamentos",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        -80
+      ],
+      "id": "f6e06a88-5e0f-4d73-b75e-95899b64c1d1",
+      "name": "Trigger 8h (Manhã)"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 12
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        320
+      ],
+      "id": "b1b96f8c-fe16-4cbb-82eb-420849414771",
+      "name": "Trigger 12h (Tarde)"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Busque TODOS os agendamentos de AMANHÃ entre 09:00 e 12:00 em todas as agendas dos profissionais.",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=Hoje: {{ $now }}\n\nBusque agendamentos de AMANHÃ ({{ $now.plus({days: 1}).toFormat('yyyy-MM-dd') }}) entre 09:00 e 12:00.\n\nExtraia: Nome, Telefone, Horário, Profissional, Serviço.\nRetorne JSON array."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        400,
+        -80
+      ],
+      "id": "aba3ac14-6c3f-44c4-a626-7b72a9b279e5",
+      "name": "Buscar Manhã"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Busque TODOS os agendamentos de AMANHÃ entre 12:00 e 19:00 em todas as agendas dos profissionais.",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=Hoje: {{ $now }}\n\nBusque agendamentos de AMANHÃ ({{ $now.plus({days: 1}).toFormat('yyyy-MM-dd') }}) entre 12:00 e 19:00.\n\nExtraia: Nome, Telefone, Horário, Profissional, Serviço.\nRetorne JSON array."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        400,
+        320
+      ],
+      "id": "ea8ae242-f607-493f-a387-a460b45d7d48",
+      "name": "Buscar Tarde"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        128
+      ],
+      "id": "8de0ca79-55cc-4390-b33d-3925b4ea4d6d",
+      "name": "OpenAI Manhã",
+      "credentials": {
+        "openAiApi": {
+          "id": "aibnjzyeL5JJ2AJo",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        544
+      ],
+      "id": "dff0d9eb-60bf-481a-a9c5-777d3ff4261e",
+      "name": "OpenAI Tarde",
+      "credentials": {
+        "openAiApi": {
+          "id": "aibnjzyeL5JJ2AJo",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "={{ $env.N8N_URL }}/mcp/agendas-betostyle/sse",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        448,
+        128
+      ],
+      "id": "855e3756-6b2f-41c3-a24e-b0f1119e998c",
+      "name": "MCP Manhã"
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "={{ $env.N8N_URL }}/mcp/agendas-betostyle/sse",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        464,
+        544
+      ],
+      "id": "5385b4b7-1af3-41fe-b126-4086d3c70a6c",
+      "name": "MCP Tarde"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[{\"Cliente\":\"Maria\",\"Telefone\":\"5511999999999\",\"Horario\":\"10:00\",\"Profissional\":\"Beto\",\"Servico\":\"Corte\"}]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        128
+      ],
+      "id": "fdc1de7d-a54c-4bcd-b3e2-a9d79e2b7f07",
+      "name": "Parser Manhã"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[{\"Cliente\":\"João\",\"Telefone\":\"5511888888888\",\"Horario\":\"14:00\",\"Profissional\":\"Juliana\",\"Servico\":\"Escova\"}]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        544
+      ],
+      "id": "98b332ee-6240-4dd5-9a13-c7fa7e7a46dc",
+      "name": "Parser Tarde"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        720,
+        -80
+      ],
+      "id": "0d2db843-0ca7-4271-b95e-e1fc317550ab",
+      "name": "Split Manhã"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        720,
+        320
+      ],
+      "id": "a8131650-70c7-4be0-8fb3-cb6d2d3de0f2",
+      "name": "Split Tarde"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        960,
+        -80
+      ],
+      "id": "d7bf74cd-e3c1-40d3-8bcf-429b17ef614e",
+      "name": "Loop Manhã"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        960,
+        320
+      ],
+      "id": "dd690939-d8d7-4e0a-a243-881907edd6ee",
+      "name": "Loop Tarde"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst msg = `✨ *Confirmação de Agendamento - Beto Style* ✨\n\nOlá, ${item.Cliente}! 👋\n\nConfirmando seu agendamento para *amanhã*:\n\n📅 *Serviço:* ${item.Servico}\n⏰ *Horário:* ${item.Horario}\n💇 *Profissional:* ${item.Profissional}\n📍 *Local:* R. Visc. de Abaeté, 184 - Brás, SP\n\nPodemos confirmar?\n✅ *SIM* - Confirmado\n❌ *NÃO* - Preciso remarcar\n\n📞 (11) 2694-7152\n\nAguardamos você! 💜`;\n\nreturn [{ json: { mensagem: msg, telefone: item.Telefone } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        -80
+      ],
+      "id": "b96848a0-00bc-4258-8271-5aaffeaf2f6d",
+      "name": "Gerar Msg Manhã"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst msg = `✨ *Confirmação de Agendamento - Beto Style* ✨\n\nOlá, ${item.Cliente}! 👋\n\nConfirmando seu agendamento para *amanhã*:\n\n📅 *Serviço:* ${item.Servico}\n⏰ *Horário:* ${item.Horario}\n💇 *Profissional:* ${item.Profissional}\n📍 *Local:* R. Visc. de Abaeté, 184 - Brás, SP\n\nPodemos confirmar?\n✅ *SIM* - Confirmado\n❌ *NÃO* - Preciso remarcar\n\n📞 (11) 2694-7152\n\nAguardamos você! 💜`;\n\nreturn [{ json: { mensagem: msg, telefone: item.Telefone } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        320
+      ],
+      "id": "bf5e882f-7ce5-4280-8cc2-52c0bd5dc942",
+      "name": "Gerar Msg Tarde"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "snipertec",
+        "remoteJid": "={{ $json.telefone }}",
+        "messageText": "={{ $json.mensagem }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        -80
+      ],
+      "id": "b5ac780b-27e0-4d69-968b-8a3eeee8a282",
+      "name": "Enviar Manhã",
+      "credentials": {
+        "evolutionApi": {
+          "id": "rFMgdiiekYEW1SOl",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "snipertec",
+        "remoteJid": "={{ $json.telefone }}",
+        "messageText": "={{ $json.mensagem }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        320
+      ],
+      "id": "301bc1b5-52b7-43b4-8dfd-12fea7fbad6b",
+      "name": "Enviar Tarde",
+      "credentials": {
+        "evolutionApi": {
+          "id": "rFMgdiiekYEW1SOl",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        320
+      ],
+      "id": "8fab5295-1640-453a-bfba-f11b48ceeb8a",
+      "name": "Aguardar 5s",
+      "webhookId": "wait-tarde"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Trigger 8h (Manhã)": {
+      "main": [
+        [
+          {
+            "node": "Buscar Manhã",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger 12h (Tarde)": {
+      "main": [
+        [
+          {
+            "node": "Buscar Tarde",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Manhã": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Buscar Manhã",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Tarde": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Buscar Tarde",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Manhã": {
+      "ai_tool": [
+        [
+          {
+            "node": "Buscar Manhã",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Tarde": {
+      "ai_tool": [
+        [
+          {
+            "node": "Buscar Tarde",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parser Manhã": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Buscar Manhã",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parser Tarde": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Buscar Tarde",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Manhã": {
+      "main": [
+        [
+          {
+            "node": "Split Manhã",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Tarde": {
+      "main": [
+        [
+          {
+            "node": "Split Tarde",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Manhã": {
+      "main": [
+        [
+          {
+            "node": "Loop Manhã",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Tarde": {
+      "main": [
+        [
+          {
+            "node": "Loop Tarde",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Manhã": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Gerar Msg Manhã",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Tarde": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Gerar Msg Tarde",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gerar Msg Manhã": {
+      "main": [
+        [
+          {
+            "node": "Enviar Manhã",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gerar Msg Tarde": {
+      "main": [
+        [
+          {
+            "node": "Enviar Tarde",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Manhã": {
+      "main": [
+        [
+          {
+            "node": "Aguardar 5s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Tarde": {
+      "main": [
+        [
+          {
+            "node": "Aguardar 5s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aguardar 5s": {
+      "main": [
+        [
+          {
+            "node": "Loop Manhã",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "4214f3d3-9e54-4c82-9fc0-522238d950ec",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2a4b897fa43efefd673e1867385c1146ec1fe788c005ba9dca6ebceedce5d149"
+  },
+  "id": "O3I3Dolgt8JG3u7z",
+  "tags": []
+}
