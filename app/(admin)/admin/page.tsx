@@ -193,6 +193,41 @@ export default function AdminDashboard() {
                 </div>
             </div>
 
+            {/* Ações críticas do Super Admin */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Link
+                    href="/automacao-n8n"
+                    className="border border-purple-500/30 rounded-lg p-4 bg-purple-500/5 hover:bg-purple-500/10 transition"
+                >
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-xs uppercase tracking-wide text-purple-400">Automação</p>
+                            <h3 className="text-lg font-semibold text-white">Workflows n8n prontos</h3>
+                            <p className="text-sm text-zinc-400 mt-1">
+                                Instale fluxos plug-and-play para Salões, Clínicas, Podologias e Barbearias.
+                            </p>
+                        </div>
+                        <Zap className="w-6 h-6 text-purple-400" />
+                    </div>
+                </Link>
+
+                <Link
+                    href="/billing/reactivate?status=past_due"
+                    className="border border-emerald-500/30 rounded-lg p-4 bg-emerald-500/5 hover:bg-emerald-500/10 transition"
+                >
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-xs uppercase tracking-wide text-emerald-400">Pagamentos</p>
+                            <h3 className="text-lg font-semibold text-white">Stripe / Assinaturas</h3>
+                            <p className="text-sm text-zinc-400 mt-1">
+                                Rota dedicada para testes e reativações enquanto o portal Stripe nativo é finalizado.
+                            </p>
+                        </div>
+                        <CreditCard className="w-6 h-6 text-emerald-400" />
+                    </div>
+                </Link>
+            </div>
+
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatsCard
