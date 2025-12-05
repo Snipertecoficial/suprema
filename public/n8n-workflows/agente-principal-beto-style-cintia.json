@@ -1,0 +1,1239 @@
+{
+  "name": "02 - Agente Principal Beto Style (Cíntia)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "894F158ADBD8-4AE0-9727-05957641BF40",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -6976,
+        -720
+      ],
+      "id": "5f0f1da5-273e-44a8-9434-78a1ecbe5d3f",
+      "name": "Webhook",
+      "webhookId": "f256f04a-1382-44eb-b8b3-64b0c51d2a48",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ddfc8c08-22d7-43e3-abad-b5cd3dfcdf13",
+              "name": "Nome",
+              "value": "={{ $json.body.data.pushName }}",
+              "type": "string"
+            },
+            {
+              "id": "da577156-0336-4cb8-98cf-acb620856825",
+              "name": "Telefone",
+              "value": "={{ $json.body.data.key.remoteJid.replaceAll(\"@s.whatsapp.net\",\"\") }}",
+              "type": "string"
+            },
+            {
+              "id": "3ba0eaa2-46cc-41a9-ac24-1f91aba1acca",
+              "name": "tipoMensagem",
+              "value": "={{ $json.body.data.messageType }}",
+              "type": "string"
+            },
+            {
+              "id": "e5af360f-3c55-4a41-bccf-0c764bdf6b4c",
+              "name": "fromMe",
+              "value": "={{ $json.body.data.key.fromMe }}",
+              "type": "string"
+            },
+            {
+              "id": "0fd39744-4570-425b-9898-424733135a4e",
+              "name": "bloquearAgente",
+              "value": "BloquearAgente",
+              "type": "string"
+            },
+            {
+              "id": "64bd7c31-7555-4c11-a9dd-85cfb78b19b0",
+              "name": "Mensagem",
+              "value": "={{ $json.body.data.message.conversation }}",
+              "type": "string"
+            },
+            {
+              "id": "7a421dfe-7db5-4ad6-be47-f3e6d7b01bc9",
+              "name": "msgPicotada",
+              "value": "=MensagemPicotada{{ $json.body.data.key.remoteJid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -6720,
+        -720
+      ],
+      "id": "ed2ecf89-a0ff-434a-ac6d-d74ca5ca3ee0",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1VTw0Dnq-7apcbaHMfC_drHM1OfetWT3pzv7QOcmfZ6E",
+          "mode": "list",
+          "cachedResultName": "Cadastro - Agendamento ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VTw0Dnq-7apcbaHMfC_drHM1OfetWT3pzv7QOcmfZ6E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "CADASTRO",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VTw0Dnq-7apcbaHMfC_drHM1OfetWT3pzv7QOcmfZ6E/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "TELEFONE",
+              "lookupValue": "={{ $json.Telefone }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -6544,
+        -640
+      ],
+      "id": "752863ac-f69d-417c-9c8c-30e21343e0a2",
+      "name": "Google Sheets",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JWkrfJIQo2rZFERd",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1VTw0Dnq-7apcbaHMfC_drHM1OfetWT3pzv7QOcmfZ6E",
+          "mode": "list",
+          "cachedResultName": "Cadastro - Agendamento ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VTw0Dnq-7apcbaHMfC_drHM1OfetWT3pzv7QOcmfZ6E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "CADASTRO",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VTw0Dnq-7apcbaHMfC_drHM1OfetWT3pzv7QOcmfZ6E/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "TELEFONE": "{{ $json.TELEFONE }}"
+          },
+          "matchingColumns": [
+            "TELEFONE"
+          ],
+          "schema": [
+            {
+              "id": "NOME",
+              "displayName": "NOME",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "TELEFONE",
+              "displayName": "TELEFONE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -6064,
+        -624
+      ],
+      "id": "f0eca6c0-f654-4db9-a81a-d7945e0fef17",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JWkrfJIQo2rZFERd",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Edit Fields').item.json.tipoMensagem }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "b8a1042f-1d61-4a34-875b-25b15993a2d9"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Texto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "87f39adc-b08d-453a-839f-7369a39afe1a",
+                    "leftValue": "={{ $('Edit Fields').item.json.tipoMensagem }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -5872,
+        -736
+      ],
+      "id": "45f2f1c8-b6b0-434c-82e9-31c39c014207",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "data.base64",
+        "options": {
+          "fileName": "audio.mp3"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -5408,
+        -640
+      ],
+      "id": "0302ecd2-f3b7-4ef9-835f-eda846fe5037",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "resource": "chat-api",
+        "operation": "get-media-base64",
+        "instanceName": "snipertec",
+        "messageId": "={{ $('Webhook').item.json.body.data.key.id }}"
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -5648,
+        -640
+      ],
+      "id": "26840516-1ffd-454d-b09f-4c855cfc598d",
+      "name": "Evolution API",
+      "credentials": {
+        "evolutionApi": {
+          "id": "rFMgdiiekYEW1SOl",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -5168,
+        -640
+      ],
+      "id": "466ee5c1-4439-4f8e-a21f-58e8dca3e36b",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "aibnjzyeL5JJ2AJo",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c91c0065-d17a-41f3-8a0f-21772a5670f1",
+              "name": "mensagemAudioemTexto",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -4944,
+        -768
+      ],
+      "id": "ceba1b79-c27a-4b30-b353-4e64bf5d33da",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5d74ff41-ebbc-4cbb-a1c5-f06801d577f0",
+              "leftValue": "={{ $('Edit Fields').item.json.fremMe }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -4736,
+        -752
+      ],
+      "id": "0b98ac05-95aa-4cfc-b549-a521c71b2c46",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{ $('Edit Fields').item.json.bloquearAgente }}",
+        "value": "true",
+        "expire": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -4464,
+        -880
+      ],
+      "id": "f541c75d-f5cd-4cad-a25d-4d593b2d0d2a",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "jCkZyKDkkbBl9EMx",
+          "name": "redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "keys",
+        "keyPattern": "={{ $('Edit Fields').item.json.bloquearAgente }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -4224,
+        -736
+      ],
+      "id": "25962da4-0709-4ea6-9330-421df103d6b0",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "jCkZyKDkkbBl9EMx",
+          "name": "redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7093cc34-f209-4ea9-a755-721b3486cdab",
+              "leftValue": "={{ $json.BloquearAgente }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -4000,
+        -736
+      ],
+      "id": "29373668-1f7d-4bca-a31f-fdc02eb2b254",
+      "name": "If2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -3792,
+        -928
+      ],
+      "id": "96fa5156-65d7-4b63-909a-d80865c538f1",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Edit Fields').item.json.msgPicotada }}",
+        "messageData": "={{ $json.mensagemAudioMaisTexto }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -3488,
+        -640
+      ],
+      "id": "04797ae5-ab67-4da9-a472-b53079e1e287",
+      "name": "Redis2",
+      "credentials": {
+        "redis": {
+          "id": "jCkZyKDkkbBl9EMx",
+          "name": "redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "547a1227-9df2-4b0b-9c91-465326c0364f",
+              "name": "mensagemAudioMaisTexto",
+              "value": "={{ $('Edit Fields').item.json.Mensagem }}{{ $('Edit Fields1').item.json.mensagemAudioemTexto }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3792,
+        -640
+      ],
+      "id": "c53e5aec-8f97-4ae6-9565-657c359ceaf9",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -3264,
+        -640
+      ],
+      "id": "2e018006-3b15-4ff4-befd-e6585904c010",
+      "name": "Wait",
+      "webhookId": "45086d60-e330-4209-8512-7afeb97e72cf"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ $('Edit Fields').item.json.msgPicotada }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -3040,
+        -640
+      ],
+      "id": "72374c4c-49bb-48b2-95ce-171f6597501c",
+      "name": "Redis3",
+      "credentials": {
+        "redis": {
+          "id": "jCkZyKDkkbBl9EMx",
+          "name": "redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Edit Fields').item.json.msgPicotada }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -2832,
+        -640
+      ],
+      "id": "3d685e2c-97c0-41d5-a345-44b53c4368ab",
+      "name": "Redis4",
+      "credentials": {
+        "redis": {
+          "id": "jCkZyKDkkbBl9EMx",
+          "name": "redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.toString }}",
+        "options": {
+          "systemMessage": "=# IDENTIDADE\nVocê é a **Cíntia**, assistente virtual do **Beto Style** - salão de beleza.\n\n**Data/Hora:** {{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }} (São Paulo)\n**Telefone Cliente:** {{ $json.Telefone }}\n**Nome Cliente:** {{ $json.Nome }}\n\n---\n\n# REGRA DE OURO - PRIMEIRO CONTATO\nSe for primeira mensagem ou não souber o nome:\n1. Apresente-se brevemente\n2. PERGUNTE O NOME antes de qualquer coisa\n3. Depois pergunte como pode ajudar\n\nEx: \"Olá! 👋 Aqui é a Cíntia do Beto Style. Com quem eu falo?\"\n\n---\n\n# INFORMAÇÕES DO SALÃO\n📍 **Endereço:** R. Visc. de Abaeté, 184 - Brás, São Paulo - SP, 03012-050  \n📞 **Telefone:** (11) 2694-7152  \n⏰ **Horário:** Terça a Sábado, 09:00 às 19:00  \n💳 **Pagamento:** PIX, Dinheiro, Débito, Crédito  \n\n---\n\n# PROFISSIONAIS\n| Nome     | Função        | Serviços                                                                 | Dias          |\n|----------|---------------|--------------------------------------------------------------------------|---------------|\n| **Beto**   | Cabeleireiro | Cortes masc/fem, Coloração, Mechas                                       | Ter-Sáb       |\n| **Juliana**| Cabeleireira| Escova, Corte Fem, Coloração, Progressiva, Depilação, Sobrancelha       | Ter-Sáb       |\n| **Wesley** | Cabeleireiro| Maquiagem, Escova, Chapinha, Coloração                                   | Ter-Sáb       |\n| **Danilo** | Cabeleireiro| Escova, Chapinha, Progressiva, Coloração                                 | Ter-Sáb       |\n| **Krys**   | Manicure     | Manicure, Pedicure, Spa dos Pés                                          | Ter-Sáb       |\n| **Vitória**| Manicure     | Manicure, Pedicure, Sobrancelha                                          | Ter-Sáb       |\n| **Kelly**  | Podóloga     | Podologia                                                                | **SÓ QUARTAS 9h-18h** |\n\n---\n\n# TABELA DE PREÇOS\n*(Consulte também a planilha do workflow “Tabela de Preços” para detalhes e atualizações.)*\n\n## CORTES\n- Corte Fem (Beto): **R$180** | 60min  \n- Corte Masc (Beto): **R$110** (Ter/Qua) ou **R$120** (Qui/Sex) | 30min  \n\n## COLORAÇÃO\n- Retoque Raiz: **R$160** | 90min  \n- Cabelo Todo: **a partir de R$200** | 120min  \n- Tonalização: **a partir de R$120** | 60min  \n- Morena Iluminada: **a partir de R$590** | 180min  \n- Luzes: **a partir de R$690** | 180min  \n\n## FINALIZAÇÃO\n- Escova: **a partir de R$70** | 45min  \n- Chapinha/Baby Liss: **R$50** | 30min  \n\n## MANICURE/PEDICURE\n- Manicure: **R$40** | 45min  \n- Pedicure: **R$45** | 45min  \n- Pé + Mão: **R$85** | 90min  \n- Spa dos Pés: **R$70** | 60min  \n\n## OUTROS\n- Maquiagem: **R$220** | 60min  \n- Penteado: **a partir de R$180** | 60min  \n- Sobrancelha: **R$50** | 30min  \n- Sobrancelha + Henna: **R$70** | 45min  \n- Podologia: **R$150** | 60min (QUARTAS)  \n\n---\n\n# FLUXO DE AGENDAMENTO\n1. Coletar: **serviço**, **profissional preferido**, **data/horário** desejados.  \n2. Verificar: **SEMPRE** checar disponibilidade via MCP antes de confirmar.  \n3. Criar evento no calendário:  \n   - `Summary = \"Nome - Serviço - Horário\"`  \n   - Descrição com: nome, telefone, data de nascimento (se tiver), profissional.\n\n⚠️ **REGRAS IMPORTANTES**\n- Atendimentos normais: **Terça a Sábado, 09h-19h**.  \n- **Kelly (Podóloga): apenas QUARTAS, 09h-18h.**  \n- Nunca agendar **data passada**.  \n- Nunca colocar **2 clientes no mesmo horário para o mesmo profissional**.  \n- Se o horário estiver ocupado, ofereça **alternativas próximas** (antes e depois).\n\n💡 **Encaixe:**  \nSe o cliente pedir encaixe ou urgência, responda algo como:  \n> \"Também temos possibilidade de encaixe em alguns casos. Você pode ligar no (11) 2694-7152 ou vir até o salão pra vermos direitinho pra você. 😊\"\n\n---\n\n# TOM DE VOZ\n- Acolhedora, simpática, eficiente.  \n- Use emojis com moderação (✨💇💅), sem exageros.  \n- Respostas **objetivas**, sem textos muito longos.  \n- **Nunca invente preços** ou condições: se não tiver certeza, diga que vai confirmar.  \n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -2160,
+        -640
+      ],
+      "id": "a5e075e5-3cff-42ad-964d-202e83ea5a24",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2528,
+        -336
+      ],
+      "id": "8d6af559-6ed2-4c49-afd9-0fce9a32d755",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "aibnjzyeL5JJ2AJo",
+          "name": "OpenAi account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "https://ia-n8n.zrxigb.easypanel.host/mcp/agendas-betostyle/sse",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        -1920,
+        -368
+      ],
+      "id": "3d7a09b0-8e1a-4356-b493-445e967ba64d",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "snipertec",
+        "remoteJid": "={{ $('Edit Fields').item.json.Telefone }}",
+        "messageText": "={{ $json.output }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -1792,
+        -640
+      ],
+      "id": "d3d24ca1-edb5-4dbf-8c6c-d2358ae31545",
+      "name": "Evolution API1",
+      "credentials": {
+        "evolutionApi": {
+          "id": "rFMgdiiekYEW1SOl",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Edit Fields').item.json.Telefone }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        -2192,
+        -368
+      ],
+      "id": "a043802e-9270-481b-903a-de3d67f4debf",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "jCkZyKDkkbBl9EMx",
+          "name": "redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c321c7c8-addc-4912-b1b4-316cc0bab974",
+              "name": "toString",
+              "value": "={{ $('Redis3').item.json.propertyName.toJsonString() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2592,
+        -640
+      ],
+      "id": "2ce2b500-c22d-434b-9c19-eebfcb1b4bdc",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "dados_clinica",
+        "toolDescription": "##evite de chamar essa tool quando for perguntado sobre tratamentos e sobre nós",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8nyt",
+          "mode": "list",
+          "cachedResultName": "n8nyt"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.1,
+      "position": [
+        -1808,
+        -368
+      ],
+      "id": "91202ff8-5ee8-47ea-86f9-8c1900d28ca4",
+      "name": "Pinecone Vector Store1",
+      "credentials": {
+        "pineconeApi": {
+          "id": "epfVyMXHkeTEVmDk",
+          "name": "PineconeApi account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1760,
+        -176
+      ],
+      "id": "3260f6ec-5515-4f37-b3df-09907df6bf54",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "aibnjzyeL5JJ2AJo",
+          "name": "OpenAi account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        -2080,
+        -352
+      ],
+      "id": "fdb1fde8-e3ca-4cd7-ab51-9db907c07fd2",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "content": "# CADASTRO",
+        "height": 480,
+        "width": 760
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -6640,
+        -864
+      ],
+      "typeVersion": 1,
+      "id": "7bd76a2e-7a5a-4cc8-bd95-cf1253847e89",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# MENSAGEM DE AUDIO",
+        "height": 480,
+        "width": 660,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -5664,
+        -864
+      ],
+      "typeVersion": 1,
+      "id": "0cfdcaf2-e718-4388-ad9d-d6bc6825ac08",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# PAUSAR AGENTE",
+        "height": 540,
+        "width": 700,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -4768,
+        -1008
+      ],
+      "typeVersion": 1,
+      "id": "3aa88408-0b08-43d5-b392-1636cd01f9b0",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# MENSAGEM FRACIONADA",
+        "height": 420,
+        "width": 840,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3520,
+        -768
+      ],
+      "typeVersion": 1,
+      "id": "7c475100-da39-4337-b1d4-aa325cf1195d",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "# AGENTE PRINCIPAL",
+        "height": 820,
+        "width": 940,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2448,
+        -816
+      ],
+      "typeVersion": 1,
+      "id": "fbce8bbb-5620-4d81-98a9-b72da29dc63a",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fdcfc068-7675-4470-941a-202f70784cc9",
+              "leftValue": "={{ $json.TELEFONE }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -6304,
+        -624
+      ],
+      "id": "a5e83742-a95a-4d55-9bcc-ce1745e208e9",
+      "name": "If3",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1fpCstWWiu0Z6azh1z9k8s9i-qEpzDrR8pKP1PKubfpU",
+          "mode": "list",
+          "cachedResultName": "Beto_Style_TABELA_UNICA_COMPLETA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fpCstWWiu0Z6azh1z9k8s9i-qEpzDrR8pKP1PKubfpU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 55700068,
+          "mode": "list",
+          "cachedResultName": "BETO STYLE",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fpCstWWiu0Z6azh1z9k8s9i-qEpzDrR8pKP1PKubfpU/edit#gid=55700068"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -2000,
+        -256
+      ],
+      "id": "4f2c8b5a-fe2d-42c0-b338-2241a8ac8822",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JWkrfJIQo2rZFERd",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -2352,
+        -368
+      ],
+      "id": "a882a08b-0585-4d10-8422-1417b2995fa8",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9A5sMy8A7bpaiUqq",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Evolution API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evolution API": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis2": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Redis2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Redis3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis3": {
+      "main": [
+        [
+          {
+            "node": "Redis4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis4": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Evolution API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "versionId": "7fee9460-fbda-439f-a5c6-f3b93bf06cff",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2a4b897fa43efefd673e1867385c1146ec1fe788c005ba9dca6ebceedce5d149"
+  },
+  "id": "jIf5wWtppjBljuhI",
+  "tags": []
+}

@@ -20,32 +20,39 @@ interface WorkflowInfo {
   description: string
   fileName: string
   icon: string
+  segments: string[]
   installed: boolean
 }
 
 const WORKFLOWS: WorkflowInfo[] = [
   {
-    id: '1',
-    name: 'Recepção de Mensagens WhatsApp',
-    description: 'Responde automaticamente mensagens recebidas usando IA (Google Gemini)',
-    fileName: '1-recepcao-mensagens-whatsapp.json',
-    icon: '💬',
+    id: 'mcp-agendas',
+    name: 'MCP | Agendas Google (Todos Profissionais)',
+    description:
+      'Conecta agendas do Google para responder consultas e encaixes de horários usando IA.',
+    fileName: 'mcp-agendas-beto-style.json',
+    icon: '📆',
+    segments: ['Salões', 'Clínicas', 'Podologias', 'Barbearias'],
     installed: false
   },
   {
-    id: '2',
-    name: 'Confirmação de Agendamentos',
-    description: 'Envia lembretes automáticos 1 dia antes do agendamento',
-    fileName: '2-confirmacao-agendamento.json',
-    icon: '📅',
+    id: 'agente-principal',
+    name: 'Agente Principal | Atendimento com IA (Cíntia)',
+    description:
+      'Agente de atendimento principal com roteiros prontos para vendas, dúvidas e pós-venda.',
+    fileName: 'agente-principal-beto-style-cintia.json',
+    icon: '🤖',
+    segments: ['Salões', 'Clínicas', 'Podologias', 'Barbearias'],
     installed: false
   },
   {
-    id: '3',
-    name: 'Boas-Vindas para Novos Clientes',
-    description: 'Envia mensagem de boas-vindas automaticamente quando um novo cliente se cadastra',
-    fileName: '3-boas-vindas-novos-clientes.json',
-    icon: '🎉',
+    id: 'confirmacao-automatica',
+    name: 'Confirmação Automática de Agendamentos',
+    description:
+      'Confirma e reconfirma horários com clientes por WhatsApp, reduzindo faltas.',
+    fileName: 'confirmacao-automatica-agendamentos.json',
+    icon: '✅',
+    segments: ['Salões', 'Clínicas', 'Podologias', 'Barbearias'],
     installed: false
   }
 ]
@@ -186,7 +193,7 @@ export default function AutomacaoN8NPage() {
     setInstalling(workflow.id)
 
     try {
-      // 1. Buscar o JSON do workflow
+      // 1. Buscar o JSON do workflow (exposto em /public/n8n-workflows)
       const workflowResponse = await fetch(`/n8n-workflows/${workflow.fileName}`)
       const workflowJson = await workflowResponse.json()
 
@@ -361,6 +368,9 @@ export default function AutomacaoN8NPage() {
                   </h3>
                   <p className="text-sm text-gray-600 mt-1">
                     {workflow.description}
+                  </p>
+                  <p className="text-xs text-purple-700 font-medium mt-2">
+                    Segmentos: {workflow.segments.join(' • ')}
                   </p>
                 </div>
               </div>
