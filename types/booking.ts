@@ -4,20 +4,23 @@ export interface OnlineBookingSettings {
     id?: string
     unit_id: string
     is_enabled?: boolean
+    slug?: string | null
     logo_url?: string | null
     banner_url?: string | null
     page_title?: string | null
     page_description?: string | null
     welcome_message?: string | null
     confirmation_message?: string | null
+    min_advance_hours?: number | null
+    max_advance_days: number
     primary_color: string
     secondary_color: string
     accent_color: string
     background_color: string
     text_color: string
     slot_interval_minutes: number
-    max_advance_days: number
     auto_confirm: boolean
+    require_phone_verification?: boolean
     show_professional_photos?: boolean
     show_professional_expertise?: boolean
     allow_online_payment?: boolean
