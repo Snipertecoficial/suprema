@@ -302,6 +302,18 @@ export default function HomePage() {
                 </div>
               </Link>
 
+              <Link href="/automacao-n8n" className="block group">
+                <div className="bg-white p-6 rounded-lg shadow group-hover:shadow-md transition-shadow cursor-pointer h-full border border-transparent group-hover:border-[#00a884]">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Bell className="h-6 w-6 text-purple-600" />
+                    <h3 className="font-semibold text-lg group-hover:text-[#00a884]">⚡ Automação n8n</h3>
+                  </div>
+                  <p className="text-gray-600 text-sm">
+                    Instale workflows prontos para Salões, Clínicas, Podologias e Barbearias
+                  </p>
+                </div>
+              </Link>
+
               <Link href="/estoque" className="block group">
                 <div className="bg-white p-6 rounded-lg shadow group-hover:shadow-md transition-shadow cursor-pointer h-full border border-transparent group-hover:border-[#00a884]">
                   <div className="flex items-center gap-3 mb-2">

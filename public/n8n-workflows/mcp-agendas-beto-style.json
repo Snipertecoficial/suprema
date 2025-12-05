@@ -1,0 +1,1167 @@
+{
+  "name": "01 - MCP Agendas Beto Style (Todos Profissionais)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "agendas-betostyle"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        -160
+      ],
+      "id": "80c553cc-8443-4811-afbc-951cfe5127b3",
+      "name": "MCP Server Trigger",
+      "webhookId": "agendas-betostyle"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "ad94e7e9bb6cbcd2a191b5d0486f4462f4f94416ad085b336e9b838ba7165d72@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Beto"
+        },
+        "returnAll": "={{ $fromAI('Return_All', '', 'boolean') }}",
+        "timeMin": "={{ $fromAI('After', 'Data inicial ISO 8601', 'string') }}",
+        "timeMax": "={{ $fromAI('Before', 'Data final ISO 8601', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        0
+      ],
+      "id": "b870f2fb-ba16-4113-8295-c65334d820cf",
+      "name": "Buscar Agenda Beto",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "ad94e7e9bb6cbcd2a191b5d0486f4462f4f94416ad085b336e9b838ba7165d72@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Beto"
+        },
+        "start": "={{ $fromAI('Start', 'Início ISO 8601', 'string') }}",
+        "end": "={{ $fromAI('End', 'Fim ISO 8601', 'string') }}",
+        "additionalFields": {
+          "description": "={{ $fromAI('Description', 'Nome, Telefone, Nascimento, Profissional: Beto', 'string') }}",
+          "summary": "={{ $fromAI('Summary', 'Nome - Serviço - Horário', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        0
+      ],
+      "id": "cb751629-b54d-4c4f-b770-8d57a7d421d4",
+      "name": "Criar Evento Beto",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "ad94e7e9bb6cbcd2a191b5d0486f4462f4f94416ad085b336e9b838ba7165d72@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Beto"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "updateFields": {
+          "description": "={{ $fromAI('Description', '', 'string') }}",
+          "end": "={{ $fromAI('End', '', 'string') }}",
+          "start": "={{ $fromAI('Start', '', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        0
+      ],
+      "id": "e8f3bb13-ecd4-4075-9055-087ba565649b",
+      "name": "Atualizar Evento Beto",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "ad94e7e9bb6cbcd2a191b5d0486f4462f4f94416ad085b336e9b838ba7165d72@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Beto"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        0
+      ],
+      "id": "afae609d-c124-4e64-9d3f-e547a502baf5",
+      "name": "Deletar Evento Beto",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "b55a29b1c4bac39f93c34c6b8aa021691f0256ea933e7fed4934c6ef5d9dff3f@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Juliana"
+        },
+        "returnAll": "={{ $fromAI('Return_All', '', 'boolean') }}",
+        "timeMin": "={{ $fromAI('After', '', 'string') }}",
+        "timeMax": "={{ $fromAI('Before', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        208
+      ],
+      "id": "cd44e314-a492-4bd3-9733-a6551b54dc9b",
+      "name": "Buscar Agenda Juliana",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "b55a29b1c4bac39f93c34c6b8aa021691f0256ea933e7fed4934c6ef5d9dff3f@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Juliana"
+        },
+        "start": "={{ $fromAI('Start', '', 'string') }}",
+        "end": "={{ $fromAI('End', '', 'string') }}",
+        "additionalFields": {
+          "description": "={{ $fromAI('Description', 'Profissional: Juliana', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        208
+      ],
+      "id": "ba57d705-665c-4451-b7d7-a3cd60932099",
+      "name": "Criar Evento Juliana",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "b55a29b1c4bac39f93c34c6b8aa021691f0256ea933e7fed4934c6ef5d9dff3f@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Juliana"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "updateFields": {
+          "description": "={{ $fromAI('Description', '', 'string') }}",
+          "end": "={{ $fromAI('End', '', 'string') }}",
+          "start": "={{ $fromAI('Start', '', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        208
+      ],
+      "id": "ff9e098a-d7d8-449d-acdb-347a4f05e8f5",
+      "name": "Atualizar Evento Juliana",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "b55a29b1c4bac39f93c34c6b8aa021691f0256ea933e7fed4934c6ef5d9dff3f@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Juliana"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        208
+      ],
+      "id": "b6fdd3df-1b04-4a75-8113-2a50514f1f06",
+      "name": "Deletar Evento Juliana",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "b5e1e5b934359951ee09fbe4933ac6f50babf4be7e905693b6b2e88b3edfdbbb@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Wesley"
+        },
+        "returnAll": "={{ $fromAI('Return_All', '', 'boolean') }}",
+        "timeMin": "={{ $fromAI('After', '', 'string') }}",
+        "timeMax": "={{ $fromAI('Before', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        400
+      ],
+      "id": "c600995f-86df-4a4e-b7f1-24a20d3ae965",
+      "name": "Buscar Agenda Wesley",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "b5e1e5b934359951ee09fbe4933ac6f50babf4be7e905693b6b2e88b3edfdbbb@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Wesley"
+        },
+        "start": "={{ $fromAI('Start', '', 'string') }}",
+        "end": "={{ $fromAI('End', '', 'string') }}",
+        "additionalFields": {
+          "description": "={{ $fromAI('Description', 'Profissional: Wesley', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        400
+      ],
+      "id": "f7007fbe-a03f-4f9e-979c-9e56a52a290d",
+      "name": "Criar Evento Wesley",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "96fb4fa277a21704dbd2201d327e0139ebb72740b5da6be0306bc74f14ebc36f@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Danilo"
+        },
+        "returnAll": "={{ $fromAI('Return_All', '', 'boolean') }}",
+        "timeMin": "={{ $fromAI('After', '', 'string') }}",
+        "timeMax": "={{ $fromAI('Before', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        608
+      ],
+      "id": "c2cfc483-0549-4abe-aee7-23d82e494815",
+      "name": "Buscar Agenda Danilo",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "96fb4fa277a21704dbd2201d327e0139ebb72740b5da6be0306bc74f14ebc36f@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Danilo"
+        },
+        "start": "={{ $fromAI('Start', '', 'string') }}",
+        "end": "={{ $fromAI('End', '', 'string') }}",
+        "additionalFields": {
+          "description": "={{ $fromAI('Description', 'Profissional: Danilo', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        608
+      ],
+      "id": "9a5006b3-6788-41b6-a677-a0816893c288",
+      "name": "Criar Evento Danilo",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "82f896e6faf5d8d9000910f8961a2372811fa5187a6aa0c6f00a0057d8695f49@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Krys"
+        },
+        "returnAll": "={{ $fromAI('Return_All', '', 'boolean') }}",
+        "timeMin": "={{ $fromAI('After', '', 'string') }}",
+        "timeMax": "={{ $fromAI('Before', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        800
+      ],
+      "id": "571eaac0-aaeb-40f5-9b56-d92176c20fdf",
+      "name": "Buscar Agenda Krys",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "82f896e6faf5d8d9000910f8961a2372811fa5187a6aa0c6f00a0057d8695f49@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Krys"
+        },
+        "start": "={{ $fromAI('Start', '', 'string') }}",
+        "end": "={{ $fromAI('End', '', 'string') }}",
+        "additionalFields": {
+          "description": "={{ $fromAI('Description', 'Profissional: Krys (Manicure)', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        800
+      ],
+      "id": "4f0fa18d-0b66-4419-b8ca-fea0cfcf8f4f",
+      "name": "Criar Evento Krys",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "76181cc360924746711a16e7605e3f98f33a4e026aa08550cc02c21ff67e8228@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Vitória"
+        },
+        "returnAll": "={{ $fromAI('Return_All', '', 'boolean') }}",
+        "timeMin": "={{ $fromAI('After', '', 'string') }}",
+        "timeMax": "={{ $fromAI('Before', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        1008
+      ],
+      "id": "e33e5a7a-b52d-4df0-baaa-595725eb8416",
+      "name": "Buscar Agenda Vitória",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "76181cc360924746711a16e7605e3f98f33a4e026aa08550cc02c21ff67e8228@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Vitória"
+        },
+        "start": "={{ $fromAI('Start', '', 'string') }}",
+        "end": "={{ $fromAI('End', '', 'string') }}",
+        "additionalFields": {
+          "description": "={{ $fromAI('Description', 'Profissional: Vitória (Manicure)', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        1008
+      ],
+      "id": "0f5992c5-9417-454a-a170-1f476af9ba6e",
+      "name": "Criar Evento Vitória",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "1ca62f777c7609f8c0b839297bc71dfd27205ae7537b439f3713682ecb75f46c@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Kelly"
+        },
+        "returnAll": "={{ $fromAI('Return_All', '', 'boolean') }}",
+        "timeMin": "={{ $fromAI('After', '', 'string') }}",
+        "timeMax": "={{ $fromAI('Before', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        1200
+      ],
+      "id": "1fcdfaf2-219b-4bb3-82e1-9eda4405515e",
+      "name": "Buscar Agenda Kelly",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "1ca62f777c7609f8c0b839297bc71dfd27205ae7537b439f3713682ecb75f46c@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Kelly"
+        },
+        "start": "={{ $fromAI('Start', '', 'string') }}",
+        "end": "={{ $fromAI('End', '', 'string') }}",
+        "additionalFields": {
+          "description": "={{ $fromAI('Description', 'Profissional: Kelly (Podóloga) - APENAS QUARTAS 09h-18h', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        1200
+      ],
+      "id": "86ec573f-df1c-4e4a-81d4-e4b2300546bd",
+      "name": "Criar Evento Kelly",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "b5e1e5b934359951ee09fbe4933ac6f50babf4be7e905693b6b2e88b3edfdbbb@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Wesley"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "updateFields": {
+          "description": "={{ $fromAI('Description', '', 'string') }}",
+          "end": "={{ $fromAI('End', '', 'string') }}",
+          "start": "={{ $fromAI('Start', '', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        400
+      ],
+      "id": "923312ae-1e66-4348-bc28-fda309fafcf8",
+      "name": "Atualizar Evento Wesley",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "b5e1e5b934359951ee09fbe4933ac6f50babf4be7e905693b6b2e88b3edfdbbb@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Wesley"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        400
+      ],
+      "id": "69f67a46-ffaa-497f-82d9-776875048e9e",
+      "name": "Deletar Evento Wesley",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "96fb4fa277a21704dbd2201d327e0139ebb72740b5da6be0306bc74f14ebc36f@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Danilo"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "updateFields": {
+          "description": "={{ $fromAI('Description', '', 'string') }}",
+          "end": "={{ $fromAI('End', '', 'string') }}",
+          "start": "={{ $fromAI('Start', '', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        608
+      ],
+      "id": "7d0baa20-fa1d-4cfa-9c4c-968eebd8a605",
+      "name": "Atualizar Evento Danilo",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "96fb4fa277a21704dbd2201d327e0139ebb72740b5da6be0306bc74f14ebc36f@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Danilo"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        608
+      ],
+      "id": "eb9d5f66-b2de-4cd3-a174-71c86245542d",
+      "name": "Deletar Evento Danilo",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "82f896e6faf5d8d9000910f8961a2372811fa5187a6aa0c6f00a0057d8695f49@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Krys"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "updateFields": {
+          "description": "={{ $fromAI('Description', '', 'string') }}",
+          "end": "={{ $fromAI('End', '', 'string') }}",
+          "start": "={{ $fromAI('Start', '', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        800
+      ],
+      "id": "70184771-7bdc-47a2-8834-ed3090186978",
+      "name": "Atualizar Evento Krys",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "82f896e6faf5d8d9000910f8961a2372811fa5187a6aa0c6f00a0057d8695f49@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Krys"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        800
+      ],
+      "id": "40be37c1-985d-488b-bc2f-0859ca8b8d04",
+      "name": "Deletar Evento Krys",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "76181cc360924746711a16e7605e3f98f33a4e026aa08550cc02c21ff67e8228@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Vitória"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "updateFields": {
+          "description": "={{ $fromAI('Description', '', 'string') }}",
+          "end": "={{ $fromAI('End', '', 'string') }}",
+          "start": "={{ $fromAI('Start', '', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        1008
+      ],
+      "id": "6484a956-89b6-4a88-943b-b6b811f883c4",
+      "name": "Atualizar Evento Vitória",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "76181cc360924746711a16e7605e3f98f33a4e026aa08550cc02c21ff67e8228@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Vitória"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        1008
+      ],
+      "id": "5f5b5e05-c0a2-4398-82ec-8aa204a4b7da",
+      "name": "Deletar Evento Vitória",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "1ca62f777c7609f8c0b839297bc71dfd27205ae7537b439f3713682ecb75f46c@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Kelly"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "updateFields": {
+          "description": "={{ $fromAI('Description', '', 'string') }}",
+          "end": "={{ $fromAI('End', '', 'string') }}",
+          "start": "={{ $fromAI('Start', '', 'string') }}",
+          "summary": "={{ $fromAI('Summary', '', 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        1200
+      ],
+      "id": "285625ef-3031-4115-b84c-a6c9df3af8f7",
+      "name": "Atualizar Evento Kelly",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "1ca62f777c7609f8c0b839297bc71dfd27205ae7537b439f3713682ecb75f46c@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Kelly"
+        },
+        "eventId": "={{ $fromAI('Event_ID', '', 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        1200
+      ],
+      "id": "13b31342-c576-4bc5-b36c-555c504c62b5",
+      "name": "Deletar Evento Kelly",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "MxPSD2hqDZyigptY",
+          "name": "Google Calendar account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Buscar Agenda Beto": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Evento Beto": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Evento Beto": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar Evento Beto": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Agenda Juliana": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Evento Juliana": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Evento Juliana": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar Evento Juliana": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Agenda Wesley": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Evento Wesley": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Agenda Danilo": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Evento Danilo": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Agenda Krys": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Evento Krys": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Agenda Vitória": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Evento Vitória": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Agenda Kelly": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Evento Kelly": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Evento Wesley": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar Evento Wesley": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Evento Danilo": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar Evento Danilo": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Evento Krys": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar Evento Krys": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Evento Vitória": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar Evento Vitória": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Evento Kelly": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar Evento Kelly": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8a78bf80-4a3c-4030-8167-0ad8b056ef69",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2a4b897fa43efefd673e1867385c1146ec1fe788c005ba9dca6ebceedce5d149"
+  },
+  "id": "LuKFzpVlCEr4UZjZ",
+  "tags": []
+}
