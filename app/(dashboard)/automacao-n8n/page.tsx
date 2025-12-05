@@ -22,6 +22,7 @@ interface WorkflowInfo {
   icon: string
   segments: string[]
   installed: boolean
+  n8nId?: string
 }
 
 const WORKFLOWS: WorkflowInfo[] = [
@@ -127,7 +128,8 @@ export default function AutomacaoN8NPage() {
         setWorkflows(prev =>
           prev.map(w => ({
             ...w,
-            installed: installedNames.includes(w.name)
+            installed: installedNames.includes(w.name),
+            n8nId: data.data?.find((item: any) => item.name === w.name)?.id || w.n8nId
           }))
         )
       }
@@ -231,13 +233,14 @@ export default function AutomacaoN8NPage() {
       }
 
       const createdWorkflow = await response.json()
+      const createdWorkflowId = createdWorkflow.data?.id || createdWorkflow.id
 
       toast.success(`✅ ${workflow.name} instalado com sucesso!`)
 
       // Atualizar status
       setWorkflows(prev =>
         prev.map(w =>
-          w.id === workflow.id ? { ...w, installed: true } : w
+          w.id === workflow.id ? { ...w, installed: true, n8nId: createdWorkflowId?.toString() } : w
         )
       )
 
@@ -380,7 +383,12 @@ export default function AutomacaoN8NPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => window.open(`${config.n8n_url}/workflow/${workflow.id}`, '_blank')}
+                    onClick={() =>
+                      window.open(
+                        `${config.n8n_url}/workflow/${workflow.n8nId ?? workflow.id}`,
+                        '_blank'
+                      )
+                    }
                   >
                     <ExternalLink className="w-4 h-4 mr-2" />
                     Abrir no n8n
