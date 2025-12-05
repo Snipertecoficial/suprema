@@ -4,14 +4,14 @@ export interface OnlineBookingSettings {
     id?: string
     unit_id: string
     is_enabled?: boolean
-    slug?: string
+    slug?: string | null
     logo_url?: string | null
     banner_url?: string | null
     page_title?: string | null
     page_description?: string | null
     welcome_message?: string | null
     confirmation_message?: string | null
-    min_advance_hours?: number
+    min_advance_hours?: number | null
     max_advance_days: number
     primary_color: string
     secondary_color: string
